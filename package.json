@@ -1,0 +1,9 @@
+{
+  "name": "WarframeCetusTracker",
+  "version": "0.0.0",
+  "main": "app.js",
+  "repository": "git@github.com:Dacrol/WarframeCetusTracker.git",
+  "author": "Dacrol <jonas.ahrens@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true
+}
