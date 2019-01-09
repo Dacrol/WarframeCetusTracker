@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import { observable, extendObservable } from 'mobx'
+import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       this.cycleStats && (
-        <div>
+        <div className="cycle-stats">
           {/* {JSON.stringify(this.cycleStats)} */}
           <p>Currently it is: {this.cycleStats.isDay ? 'day' : 'night'}</p>
           <p>Time left: {msToTime(this.timeLeft)}</p>
