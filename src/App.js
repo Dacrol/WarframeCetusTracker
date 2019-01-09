@@ -18,7 +18,7 @@ class App extends Component {
     return (
       this.cycleStats && (
         <div>
-          {JSON.stringify(this.cycleStats)}
+          {/* {JSON.stringify(this.cycleStats)} */}
           <p>Currently it is: {this.cycleStats.isDay ? 'day' : 'night'}</p>
           <p>Time left: {msToTime(this.timeLeft)}</p>
         </div>
