@@ -36,7 +36,7 @@ class App extends Component {
         this.timeInterval = setInterval(() => {
           this.updateTimeLeft()
           if (this.timeLeft < 0) this.updateCetusCycle()
-        }, 1000)
+        }, 900)
       })
   }
 
