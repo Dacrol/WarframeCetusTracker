@@ -52,7 +52,7 @@ function msToTime(s) {
   s = (s - secs) / 60
   let mins = s % 60
   let hrs = (s - mins) / 60
-  return hrs + ':' + mins + ':' + secs
+  return hrs + ':' + (mins < 10 ? '0' + mins : mins) + ':' + (secs < 10 ? '0' + secs : secs)
 }
 
 export default observer(App)
