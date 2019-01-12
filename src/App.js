@@ -32,11 +32,19 @@ class App extends Component {
       .then(data => {
         this.cycleStats = data
         console.log(this.cycleStats)
+        this.updateTimeLeft()
         if (this.timeInterval) clearInterval(this.timeInterval)
+        if (this.timeLeft < 0) {
+          clearInterval(this.timeInterval)
+          this.timeInterval = setInterval(() => {
+            this.updateCetusCycle()
+          }, 5000);
+        } else {
         this.timeInterval = setInterval(() => {
           this.updateTimeLeft()
           if (this.timeLeft < 0) this.updateCetusCycle()
         }, 250)
+      }
       })
   }
 
