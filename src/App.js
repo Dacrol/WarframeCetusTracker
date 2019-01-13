@@ -20,7 +20,7 @@ class App extends Component {
         <div className="cycle-stats">
           {/* {JSON.stringify(this.cycleStats)} */}
           <p>Currently it is: {this.cycleStats.isDay ? 'day' : 'night'}</p>
-          <p>Time left: {msToTime(this.timeLeft)}</p>
+          <p>Time left: {this.timeLeft !== 0 ? msToTime(this.timeLeft) : 'awaiting update...'}</p>
         </div>
       )
     )
@@ -36,9 +36,10 @@ class App extends Component {
         if (this.timeInterval) clearInterval(this.timeInterval)
         if (this.timeLeft < 0) {
           clearInterval(this.timeInterval)
+          this.timeLeft = 0
           this.timeInterval = setInterval(() => {
             this.updateCetusCycle()
-          }, 5000);
+          }, 20000);
         } else {
         this.timeInterval = setInterval(() => {
           this.updateTimeLeft()
