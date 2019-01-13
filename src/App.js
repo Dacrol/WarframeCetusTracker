@@ -20,7 +20,12 @@ class App extends Component {
         <div className="cycle-stats">
           {/* {JSON.stringify(this.cycleStats)} */}
           <p>Currently it is: {this.cycleStats.isDay ? 'day' : 'night'}</p>
-          <p>Time left: {this.timeLeft !== 0 ? msToTime(this.timeLeft) : 'awaiting update...'}</p>
+          <p>
+            Time left:{' '}
+            {this.timeLeft !== 0
+              ? msToTime(this.timeLeft)
+              : 'awaiting update...'}
+          </p>
         </div>
       )
     )
@@ -31,7 +36,7 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         this.cycleStats = data
-        console.log(this.cycleStats)
+        console.log(this.cycleStats, new Date())
         this.updateTimeLeft()
         if (this.timeInterval) clearInterval(this.timeInterval)
         if (this.timeLeft < 0) {
@@ -39,13 +44,16 @@ class App extends Component {
           this.timeLeft = 0
           this.timeInterval = setInterval(() => {
             this.updateCetusCycle()
-          }, 20000);
+          }, 20000)
         } else {
-        this.timeInterval = setInterval(() => {
-          this.updateTimeLeft()
-          if (this.timeLeft < 0) this.updateCetusCycle()
-        }, 250)
-      }
+          this.timeInterval = setInterval(() => {
+            this.updateTimeLeft()
+            if (this.timeLeft < 0) {
+              clearInterval(this.timeInterval)
+              this.updateCetusCycle()
+            }
+          }, 250)
+        }
       })
   }
 
@@ -61,7 +69,13 @@ function msToTime(s) {
   s = (s - secs) / 60
   let mins = s % 60
   let hrs = (s - mins) / 60
-  return hrs + ':' + (mins < 10 ? '0' + mins : mins) + ':' + (secs < 10 ? '0' + secs : secs)
+  return (
+    hrs +
+    ':' +
+    (mins < 10 ? '0' + mins : mins) +
+    ':' +
+    (secs < 10 ? '0' + secs : secs)
+  )
 }
 
 export default observer(App)
