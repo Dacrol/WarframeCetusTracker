@@ -39,8 +39,10 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         this.cycleStats = data
-        if (data && data.isDay === false && this.dayOrNight === 'day') bell.play()
-        if (this.cycleStats) this.dayOrNight = this.cycleStats.isDay ? 'day' : 'night'
+        if (data && data.isDay === false && this.dayOrNight === 'day')
+          bell.play()
+        if (this.cycleStats)
+          this.dayOrNight = this.cycleStats.isDay ? 'day' : 'night'
         console.log(this.cycleStats, new Date())
         this.updateTimeLeft()
         if (this.timeInterval) clearInterval(this.timeInterval)
@@ -59,6 +61,11 @@ class App extends Component {
             }
           }, 250)
         }
+      })
+      .catch(() => {
+        setTimeout(() => {
+          this.updateCetusCycle()
+        }, 30000)
       })
   }
 
