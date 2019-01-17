@@ -3,7 +3,7 @@ import './App.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
 
-const bell = new Audio('/MM_ClockTower_Bell.wav')
+const bell = new Audio('./MM_ClockTower_Bell.wav')
 
 class App extends Component {
   constructor(props) {
