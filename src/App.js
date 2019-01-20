@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
