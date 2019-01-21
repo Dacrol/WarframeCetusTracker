@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { extendObservable } from 'mobx'
 import { observer } from 'mobx-react'
+import { CustomInput } from 'reactstrap'
 
 const bell = new Audio('./MM_ClockTower_Bell.wav')
 
@@ -12,7 +13,8 @@ class App extends Component {
     extendObservable(this, {
       cycleStats: {},
       timeLeft: 0,
-      dayOrNight: ''
+      dayOrNight: '',
+      soundEnabled: true
     })
     this.timeInterval = null
     this.updateCetusCycle()
@@ -30,6 +32,16 @@ class App extends Component {
               ? msToTime(this.timeLeft)
               : 'awaiting update...'}
           </p>
+          <CustomInput
+            type="switch"
+            id="soundToggle"
+            name="soundToggle"
+            label="Enable sound on nightfall"
+            defaultChecked
+            onChange={e => {
+              this.soundEnabled = e.currentTarget.checked
+            }}
+          />
         </div>
       )
     )
@@ -40,7 +52,7 @@ class App extends Component {
       .then(res => res.json())
       .then(data => {
         this.cycleStats = data
-        if (data && data.isDay === false && this.dayOrNight === 'day')
+        if (data && data.isDay === false && this.dayOrNight === 'day' && this.soundEnabled)
           bell.play()
         if (this.cycleStats)
           this.dayOrNight = this.cycleStats.isDay ? 'day' : 'night'
