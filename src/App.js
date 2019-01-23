@@ -14,7 +14,8 @@ class App extends Component {
       cycleStats: {},
       timeLeft: 0,
       dayOrNight: '',
-      soundEnabled: true
+      soundEnabled: true,
+      bounties: []
     })
     this.timeInterval = null
     this.updateCetusCycle()
@@ -48,11 +49,17 @@ class App extends Component {
   }
 
   updateCetusCycle() {
-    fetch('https://api.warframestat.us/pc/cetusCycle')
+    fetch('https://api.warframestat.us/pc')
       .then(res => res.json())
-      .then(data => {
-        this.cycleStats = data
-        if (data && data.isDay === false && this.dayOrNight === 'day' && this.soundEnabled)
+      .then(res => {
+        const cycleStats = res.cetusCycle
+        this.cycleStats = cycleStats
+        if (
+          cycleStats &&
+          cycleStats.isDay === false &&
+          this.dayOrNight === 'day' &&
+          this.soundEnabled
+        )
           bell.play()
         if (this.cycleStats)
           this.dayOrNight = this.cycleStats.isDay ? 'day' : 'night'
@@ -73,6 +80,15 @@ class App extends Component {
               this.updateCetusCycle()
             }
           }, 250)
+        }
+        try {
+          let bounties = res.syndicateMissions.find(
+            missions => missions.syndicate === 'Ostrons'
+          )
+          this.bounties = bounties
+          console.log(this.bounties)
+        } catch (error) {
+          console.warn('Bounties not found')
         }
       })
       .catch(() => {
