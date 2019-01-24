@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { extendObservable, toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import { CustomInput } from 'reactstrap'
+import { CustomInput, Container, Row, Col } from 'reactstrap'
 
 const bell = new Audio('./MM_ClockTower_Bell.wav')
 
@@ -24,25 +24,41 @@ class App extends Component {
   render() {
     return (
       this.cycleStats && (
-        <div className="cycle-stats">
-          {/* {JSON.stringify(this.cycleStats)} */}
-          <p>Currently it is: {this.dayOrNight}</p>
-          <p>
-            Time left:{' '}
-            {this.timeLeft !== 0
-              ? msToTime(this.timeLeft)
-              : 'awaiting update...'}
-          </p>
-          <CustomInput
-            type="switch"
-            id="soundToggle"
-            name="soundToggle"
-            label="Enable sound on nightfall"
-            defaultChecked
-            onChange={e => {
-              this.soundEnabled = e.currentTarget.checked
-            }}
-          />
+        <div>
+          <div className="cycle-stats">
+            {/* {JSON.stringify(this.cycleStats)} */}
+            <p>Currently it is: {this.dayOrNight}</p>
+            <p>
+              Time left:{' '}
+              {this.timeLeft !== 0
+                ? msToTime(this.timeLeft)
+                : 'awaiting update...'}
+            </p>
+            <CustomInput
+              type="switch"
+              id="soundToggle"
+              name="soundToggle"
+              label="Enable sound on nightfall"
+              defaultChecked
+              onChange={e => {
+                this.soundEnabled = e.currentTarget.checked
+              }}
+            />
+          </div>
+          <div>
+            <Container className="text-center">
+              <h4 className="mt-5 mb-2">
+                Cetus Bounties
+              </h4>
+              <Row className="mt-4">
+                {this.bounties &&
+                  Array.isArray(this.bounties.jobs) &&
+                  this.bounties.jobs.map((bounty, index) => (
+                    <Col key={index}>{bounty.type}</Col>
+                  ))}
+              </Row>
+            </Container>
+          </div>
         </div>
       )
     )
