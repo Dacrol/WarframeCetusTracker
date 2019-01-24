@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import { extendObservable } from 'mobx'
+import { extendObservable, toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { CustomInput } from 'reactstrap'
 
@@ -86,7 +86,7 @@ class App extends Component {
             missions => missions.syndicate === 'Ostrons'
           )
           this.bounties = bounties
-          console.log(this.bounties)
+          console.log(toJS(this.bounties))
         } catch (error) {
           console.warn('Bounties not found')
         }
