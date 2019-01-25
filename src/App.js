@@ -4,8 +4,14 @@ import './App.css'
 import { extendObservable, toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { CustomInput, Container, Row, Col } from 'reactstrap'
+import styled from 'styled-components'
 
 const bell = new Audio('./MM_ClockTower_Bell.wav')
+
+const UnstyledList = styled.ul`
+  list-style: none;
+  padding: 0;
+`
 
 class App extends Component {
   constructor(props) {
@@ -54,7 +60,12 @@ class App extends Component {
                 {this.bounties &&
                   Array.isArray(this.bounties.jobs) &&
                   this.bounties.jobs.map((bounty, index) => (
-                    <Col key={index}>{bounty.type}</Col>
+                    <Col key={index}>
+                      <h5>{bounty.type}</h5>
+                      <UnstyledList>
+                        {bounty.rewardPool.map((reward, index) => <li key={index}>{reward}</li>)}
+                      </UnstyledList>
+                    </Col>
                   ))}
               </Row>
             </Container>
