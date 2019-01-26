@@ -11,6 +11,8 @@ const bell = new Audio('./MM_ClockTower_Bell.wav')
 const UnstyledList = styled.ul`
   list-style: none;
   padding: 0;
+  font-size: 0.9rem;
+  color: #bbbbbb;
 `
 
 class App extends Component {
@@ -62,9 +64,9 @@ class App extends Component {
                   this.bounties.jobs.map((bounty, index) => (
                     <Col key={index}>
                       <h5>{bounty.type}</h5>
-                      <UnstyledList>
+                      {Array.isArray(bounty.rewardPool) && <UnstyledList>
                         {bounty.rewardPool.map((reward, index) => <li key={index}>{reward}</li>)}
-                      </UnstyledList>
+                      </UnstyledList>}
                     </Col>
                   ))}
               </Row>
