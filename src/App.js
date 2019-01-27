@@ -27,6 +27,11 @@ class App extends Component {
     })
     this.timeInterval = null
     this.updateCetusCycle()
+    setInterval(() => {
+      if (this.bounties.length === 0) {
+        this.updateCetusCycle()
+      }
+    }, 60000);
   }
 
   render() {
