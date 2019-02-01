@@ -23,7 +23,8 @@ class App extends Component {
       timeLeft: 0,
       dayOrNight: '',
       soundEnabled: true,
-      bounties: []
+      bounties: [],
+      bellPlayed: false
     })
     this.timeInterval = null
     this.updateCetusCycle()
@@ -88,13 +89,7 @@ class App extends Component {
       .then(res => {
         const cycleStats = res.cetusCycle
         this.cycleStats = cycleStats
-        if (
-          cycleStats &&
-          cycleStats.isDay === false &&
-          this.dayOrNight === 'day' &&
-          this.soundEnabled
-        )
-          bell.play()
+        this.bellPlayed = false
         if (this.cycleStats)
           this.dayOrNight = this.cycleStats.isDay ? 'day' : 'night'
         console.log(this.cycleStats, new Date())
@@ -134,6 +129,17 @@ class App extends Component {
 
   updateTimeLeft() {
     this.timeLeft = new Date(this.cycleStats.expiry).getTime() - Date.now()
+    if (
+      this.cycleStats &&
+      this.cycleStats.isDay === false &&
+      this.dayOrNight === 'day' &&
+      this.soundEnabled &&
+      this.timeLeft === 5 &&
+      !this.bellPlayed
+    ) {
+      bell.play()
+      this.bellPlayed = true
+    }
   }
 }
 
