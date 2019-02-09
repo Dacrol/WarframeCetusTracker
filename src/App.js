@@ -131,10 +131,10 @@ class App extends Component {
     this.timeLeft = new Date(this.cycleStats.expiry).getTime() - Date.now()
     if (
       this.cycleStats &&
-      this.cycleStats.isDay === false &&
       this.dayOrNight === 'day' &&
       this.soundEnabled &&
-      this.timeLeft === 5 &&
+      this.timeLeft < 5000 &&
+      this.timeLeft > 0 &&
       !this.bellPlayed
     ) {
       bell.play()
