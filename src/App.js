@@ -111,11 +111,15 @@ class App extends Component {
           }, 250)
         }
         try {
-          let bounties = res.syndicateMissions.find(
+          const bounties = res.syndicateMissions.find(
             missions => missions.syndicate === 'Ostrons'
           )
           this.bounties = bounties
-          console.log(toJS(this.bounties))
+          console.log(res.syndicateMissions)
+          const solarisBounties = res.syndicateMissions.find(
+            missions => missions.syndicate === 'Solaris United'
+          )
+          this.solarisBounties = solarisBounties
         } catch (error) {
           console.warn('Bounties not found')
         }
