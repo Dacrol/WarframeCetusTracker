@@ -24,7 +24,8 @@ class App extends Component {
       dayOrNight: '',
       soundEnabled: true,
       bounties: [],
-      bellPlayed: false
+      bellPlayed: false,
+      solarisBounties: []
     })
     this.timeInterval = null
     this.updateCetusCycle()
@@ -68,6 +69,23 @@ class App extends Component {
                 {this.bounties &&
                   Array.isArray(this.bounties.jobs) &&
                   this.bounties.jobs.map((bounty, index) => (
+                    <Col key={index}>
+                      <h5>{bounty.type}</h5>
+                      {Array.isArray(bounty.rewardPool) && <UnstyledList>
+                        {bounty.rewardPool.map((reward, index) => <li key={index}>{reward}</li>)}
+                      </UnstyledList>}
+                    </Col>
+                  ))}
+              </Row>
+            </Container>
+            <Container className="text-center">
+              <h4 className="mt-5 mb-2">
+                Fortuna Bounties
+              </h4>
+              <Row className="mt-4">
+                {this.solarisBounties &&
+                  Array.isArray(this.solarisBounties.jobs) &&
+                  this.solarisBounties.jobs.map((bounty, index) => (
                     <Col key={index}>
                       <h5>{bounty.type}</h5>
                       {Array.isArray(bounty.rewardPool) && <UnstyledList>
