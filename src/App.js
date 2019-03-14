@@ -12,7 +12,6 @@ const UnstyledList = styled.ul`
   list-style: none;
   padding: 0;
   font-size: 0.9rem;
-  color: #bbbbbb;
 `
 
 class App extends Component {
@@ -25,7 +24,21 @@ class App extends Component {
       soundEnabled: true,
       bounties: [],
       bellPlayed: false,
-      solarisBounties: []
+      solarisBounties: [],
+      themeButtonClass: "btn btn-light",
+      themeToggle: true,
+      themes: {  
+        dark:{  
+          color: "#cccccc",
+          bgcolor: "#1c1e27",
+          themeButtonClass: "btn btn-light"
+        },
+        light:{  
+          color: "#1c1e27",
+          bgcolor: "#cccccc",
+          themeButtonClass: "btn btn-dark"
+        }
+      }
     })
     this.timeInterval = null
     this.updateCetusCycle()
@@ -40,6 +53,20 @@ class App extends Component {
     return (
       this.cycleStats && (
         <div>
+          <div className="d-flex justify-content-end m-3">
+            <button
+              type="button"
+              className={this.themeButtonClass}
+              onClick={() => {
+                let choice = this.themeToggle ? 'light' : 'dark' 
+                document.documentElement.style.setProperty('--bg-color', this.themes[choice].bgcolor);
+                document.documentElement.style.setProperty('--color', this.themes[choice].color);
+                this.themeButtonClass = this.themes[choice].themeButtonClass
+                this.themeToggle = !this.themeToggle;
+              }}>
+                invert colors
+              </button>
+            </div>
           <div className="cycle-stats">
             {/* {JSON.stringify(this.cycleStats)} */}
             <p>Currently it is: {this.dayOrNight}</p>
