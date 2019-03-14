@@ -64,7 +64,7 @@ class App extends Component {
                 this.themeButtonClass = this.themes[choice].themeButtonClass
                 this.themeToggle = !this.themeToggle;
               }}>
-                invert colors
+                Invert colors
               </button>
             </div>
           <div className="cycle-stats">
